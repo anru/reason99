@@ -15,6 +15,9 @@ describe(
     test("p04_1", () => expect(Pr.length_04([12, 21, 47])) |> toEqual(3));
     test("p04_1", () => expect(Pr.length_04([])) |> toEqual(0));
     test("p05_1", () => expect(Pr.rev_05([12, 21, 47])) |> toEqual([47, 21, 12]));
-    test("p05_2", () => expect(Pr.rev_05([])) |> toEqual([]))
+    test("p05_2", () => expect(Pr.rev_05([])) |> toEqual([]));
+    test("p06_1", () => expect(Pr.is_palindrome([1, 2, 3, 2, 1])) |> toBe(true));
+    test("p06_1", () => expect(Pr.is_palindrome([1, 2, 2, 1])) |> toBe(true));
+    test("p06_1", () => expect(Pr.is_palindrome([1, 2, 2, 2])) |> toBe(false))
   }
 );

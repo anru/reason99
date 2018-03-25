@@ -34,3 +34,5 @@ let rev_05 = (ll: list('a)) => {
     };
   reverse(ll, [])
 };
+
+let is_palindrome = (ll: list('a)) => rev_05(ll) == ll;
