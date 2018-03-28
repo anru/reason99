@@ -26,6 +26,7 @@ describe(
     test("flatten", () => expect(flatten(nested_list)) |> toEqual(flattened_list));
     test("flatten2", () => expect(flatten2(nested_list)) |> toEqual(flattened_list));
     let llist = ["a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e"];
-    test("compress", () => expect(compress(llist)) |> toEqual(["a", "b", "c", "a", "d", "e"]))
+    test("compress", () => expect(compress(llist)) |> toEqual(["a", "b", "c", "a", "d", "e"]));
+    test("compress2", () => expect(compress2(llist)) |> toEqual(["a", "b", "c", "a", "d", "e"]))
   }
 );

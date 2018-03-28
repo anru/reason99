@@ -80,3 +80,9 @@ let compress = (ll: list('a)) => {
     };
   reverse(aux(ll, []))
 };
+
+let rec compress2 = (ll: list('a)) =>
+  switch ll {
+  | [a, ...[b, ..._] as t] => a == b ? compress2(t) : [a, ...compress2(t)]
+  | smaller => smaller
+  };
