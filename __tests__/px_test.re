@@ -53,6 +53,10 @@ describe(
       ["d", "d"],
       ["e", "e", "e", "e"]
     ];
-    test("pack", () => expect(pack(unpacked_list)) |> toEqual(packed_list))
+    test("pack", () => expect(pack(unpacked_list)) |> toEqual(packed_list));
+    let list_10 = ["a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e"];
+    let list_10_rl = [(4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e")];
+    test("encode_rl", () => expect(encode_rl(list_10)) |> toEqual(list_10_rl));
+    test("encode_with_pack_rl", () => expect(encode_with_pack_rl(list_10)) |> toEqual(list_10_rl))
   }
 );

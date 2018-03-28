@@ -96,3 +96,24 @@ let pack = (ll: list('a)) => {
     };
   reverse(aux(ll, []))
 };
+
+let encode_with_pack_rl = (ll: list('a)) : list((int, 'a)) => {
+  let packed_ll = pack(ll);
+  let rec aux = (l: list(list('a))) =>
+    switch l {
+    | [[x, ..._] as t, ...rest] => [(length(t), x), ...aux(rest)]
+    | _ => []
+    };
+
+  aux(packed_ll)
+};
+
+let encode_rl = (ll: list('a)) : list((int, 'a)) => {
+  let rec aux = (l: list('a), count: int) =>
+    switch l {
+    | [a, ...[b, ..._] as t] => a == b ? aux(t, count + 1) : [(count, a), ...aux(t, 1)]
+    | [a] => [(count, a)]
+    | _ => []
+    };
+  aux(ll, 1)
+};
