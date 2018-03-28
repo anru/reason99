@@ -86,3 +86,13 @@ let rec compress2 = (ll: list('a)) =>
   | [a, ...[b, ..._] as t] => a == b ? compress2(t) : [a, ...compress2(t)]
   | smaller => smaller
   };
+
+let pack = (ll: list('a)) => {
+  let rec aux = (ll: list('a), acc: list(list('a))) =>
+    switch (ll, acc) {
+    | ([x, ...rest], [[y, ..._] as f, ...t]) when x == y => aux(rest, [[x, ...f], ...t])
+    | ([x, ...rest], acc) => aux(rest, [[x], ...acc])
+    | ([], acc) => acc
+    };
+  reverse(aux(ll, []))
+};

@@ -27,6 +27,32 @@ describe(
     test("flatten2", () => expect(flatten2(nested_list)) |> toEqual(flattened_list));
     let llist = ["a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e"];
     test("compress", () => expect(compress(llist)) |> toEqual(["a", "b", "c", "a", "d", "e"]));
-    test("compress2", () => expect(compress2(llist)) |> toEqual(["a", "b", "c", "a", "d", "e"]))
+    test("compress2", () => expect(compress2(llist)) |> toEqual(["a", "b", "c", "a", "d", "e"]));
+    let unpacked_list = [
+      "a",
+      "a",
+      "a",
+      "a",
+      "b",
+      "c",
+      "c",
+      "a",
+      "a",
+      "d",
+      "d",
+      "e",
+      "e",
+      "e",
+      "e"
+    ];
+    let packed_list = [
+      ["a", "a", "a", "a"],
+      ["b"],
+      ["c", "c"],
+      ["a", "a"],
+      ["d", "d"],
+      ["e", "e", "e", "e"]
+    ];
+    test("pack", () => expect(pack(unpacked_list)) |> toEqual(packed_list))
   }
 );
