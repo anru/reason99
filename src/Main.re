@@ -51,13 +51,13 @@ let concat = (a: list('a), b: list('a)) => {
 };
 
 let flatten = (ll: list(node('a))) => {
-  let rec flattenify = (ll: list(node('a)), acc: list('a)) =>
+  let rec aux = (ll: list(node('a)), acc: list('a)) =>
     switch (ll, acc) {
-    | ([One(a), ...rest], acc) => flattenify(rest, [a, ...acc])
-    | ([Many(sublist), ...rest], acc) => flattenify(concat(sublist, rest), acc)
+    | ([One(a), ...rest], acc) => aux(rest, [a, ...acc])
+    | ([Many(sublist), ...rest], acc) => aux(concat(sublist, rest), acc)
     | ([], acc) => acc
     };
-  reverse(flattenify(ll, []))
+  reverse(aux(ll, []))
 };
 
 let flatten2 = (ll: list(node('a))) => {
@@ -65,6 +65,17 @@ let flatten2 = (ll: list(node('a))) => {
     switch (ll, acc) {
     | ([One(a), ...rest], acc) => aux(rest, [a, ...acc])
     | ([Many(sublist), ...rest], acc) => aux(rest, aux(sublist, acc))
+    | ([], acc) => acc
+    };
+  reverse(aux(ll, []))
+};
+
+let compress = (ll: list('a)) => {
+  let rec aux = (ll: list('a), acc: list('a)) =>
+    switch (ll, acc) {
+    | ([x, ...rest], []) => aux(rest, [x])
+    | ([x, ...rest], [y, ...res]) when x == y => aux(rest, [x, ...res])
+    | ([x, ...rest], acc) => aux(rest, [x, ...acc])
     | ([], acc) => acc
     };
   reverse(aux(ll, []))
