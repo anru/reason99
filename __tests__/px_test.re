@@ -57,6 +57,16 @@ describe(
     let list_10 = ["a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e"];
     let list_10_rl = [(4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e")];
     test("encode_rl", () => expect(encode_rl(list_10)) |> toEqual(list_10_rl));
-    test("encode_with_pack_rl", () => expect(encode_with_pack_rl(list_10)) |> toEqual(list_10_rl))
+    test("encode_with_pack_rl", () => expect(encode_with_pack_rl(list_10)) |> toEqual(list_10_rl));
+    let rle_ex =
+      Encode.[Many(4, "a"), One("b"), Many(2, "c"), Many(2, "a"), One("d"), Many(4, "e")];
+    test(
+      "encode_rle",
+      () =>
+        expect(
+          Encode.encode_rle(["a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e"])
+        )
+        |> toEqual(rle_ex)
+    )
   }
 );

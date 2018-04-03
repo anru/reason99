@@ -108,6 +108,9 @@ let encode_with_pack_rl = (ll: list('a)) : list((int, 'a)) => {
   aux(packed_ll)
 };
 
+/* # encode_rl ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
+- : (int * string) list =
+[(4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e")] */
 let encode_rl = (ll: list('a)) : list((int, 'a)) => {
   let rec aux = (l: list('a), count: int) =>
     switch l {
@@ -117,3 +120,28 @@ let encode_rl = (ll: list('a)) : list((int, 'a)) => {
     };
   aux(ll, 1)
 };
+
+module Encode = {
+  type rle('a) =
+    | One('a)
+    | Many(int, 'a);
+  
+  /* encode_rle ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
+  - : string rle list =
+  [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d";
+   Many (4, "e")] */
+  let encode_rle = (ll: list('a)) : list(rle('a)) => {
+    let mk = (count: int, v: 'a) => {
+      count == 1 ? One(v) : Many(count, v)
+    };
+  
+    let rec aux = (l: list('a), count: int) =>
+      switch l {
+      | [a, ...[b, ..._] as t] => a == b ? aux(t, count + 1) : [mk(count, a), ...aux(t, 1)]
+      | [a] => [mk(count, a)]
+      | _ => []
+      };
+    aux(ll, 1)
+  }; 
+}
+
